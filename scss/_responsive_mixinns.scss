@@ -1,0 +1,93 @@
+@import "./_typographic.scss";
+
+$breakpoints: ('small': (max-width: 767px),
+  'medium': (max-width: 992px),
+  'large': (max-width: 1200px)) !default;
+
+@mixin respond-to($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media #{inspect(map-get($breakpoints, $breakpoint))} {
+      @content;
+    }
+  }
+
+  @else {
+    @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+    +"Available breakpoints are: #{map-keys($breakpoints)}.";
+  }
+}
+
+@include respond-to('medium') {
+
+  .left-header,
+  .yellow,
+  .white {
+    display: none;
+  }
+  .footer-holder {
+    padding: 60px !important;
+  }
+  .catalogue {
+    .boxes {
+      height: 300px !important;
+      width : calc(50% - 20px) !important;
+
+      &:nth-child(3n) {
+        width : calc(50% - 20px) !important;
+        margin: 0 20 20 0 !important;
+      }
+
+      &:nth-child(2n) {
+        width : calc(50%) !important;
+        margin: 0 0 20 0 !important;
+      }
+    }
+  }
+
+  .category-title {
+    font-size: map-get($font-size, "medium") !important;
+  }
+
+  .section-title:nth-child(2n)::before,
+  .section-title:nth-child(2n)::after {
+    width: 42% !important;
+  }
+}
+
+@include respond-to('small') {
+  .black {
+    display: none;
+  }
+
+  .camo {
+    margin: 0 auto;
+  }
+
+  #boxes {
+    width : 100% !important;
+    margin: 0 0 20 0 !important;
+  }
+
+  .footer-holder {
+    padding: 30px !important;
+  }
+
+  .navbar {
+    display: none;
+  }
+
+  .authlink-content {
+    margin-right: 20px !important;
+  }
+
+  header {
+    display: block !important;
+  }
+
+  .right-header {
+    display        : flex;
+    align-items    : center;
+    justify-content: flex-end;
+    margin         : 20px 0px;
+  }
+}
